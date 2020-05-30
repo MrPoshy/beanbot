@@ -6,6 +6,7 @@ Find this bot at [BeanBoi's BeanBox](http://discord.juanr.me "BeanBoi's BeanBox"
 
 
 # Features
+- Logan funnies (B\>log, B\>logan, B\>LoganSounds)
 - BeanLab Server Statuses (in progress)
 - Funny things (in progress)
 
