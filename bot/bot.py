@@ -64,7 +64,7 @@ async def on_message(message):
     if message.author == bot.user or message.author.bot:
         return
 
-    if discord.utils.get(message.author.roles, name="group sechs") is not None and random.random() < 0.01:
+    if discord.utils.get(message.author.roles, name="group sechs") is not None and random.random() < 0.001:
         await message.channel.send(f'shut up {message.author.mention}')
 
     if 'peepee' in message.content.lower():
