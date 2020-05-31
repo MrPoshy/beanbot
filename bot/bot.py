@@ -26,15 +26,25 @@ async def on_ready():
         f'{bot.user} is in!\n'
         f'Connected to: {guild.name}(id: {guild.id})'
     )
+    bot.loop.create_task(status_task())
+
+# Status
+async def status_task():
+    while True:
+        await bot.change_presence(activity=discord.Game(name='B>log', type=2, url='https://github.com/JuanRTech/beanbot'))
+        await asyncio.sleep(10)
+        await bot.change_presence(activity=discord.Game(name='funny bot', type=1, url='https://github.com/JuanRTech/beanbot'))
+        await asyncio.sleep(10)
+
 
 # Logan Sounds
 class LoganSounds(commands.Cog):
     @bot.command(name='LoganSounds', description='Play some epic logan sounds', pass_context=True, aliases=['log', 'logan', 'Logan'])
     async def playsound(ctx):
-        channel = ctx.message.author.voice.channel
-
-        # channel check
-        if not channel:
+        try:
+            channel = ctx.message.author.voice.channel
+        except:
+            # channel check
             await ctx.send('You ain\'t in a channel homie')
             return
         
