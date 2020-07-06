@@ -36,6 +36,44 @@ async def status_task():
         await bot.change_presence(activity=discord.Game(name='funny bot', type=1, url='https://github.com/JuanRTech/beanbot'))
         await asyncio.sleep(10)
 
+# Join
+class Join(commands.Cog):
+    @bot.command(name='Join', description='Make the bot join your channel!', pass_context=True, aliases=['join'])
+    async def join(ctx):
+        try:
+            channel = ctx.message.author.voice.channel
+        except:
+            # channel check
+            await ctx.send('You ain\'t in a channel homie')
+            return
+
+        await ctx.send('It\'s gamer time')
+
+        voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
+        if voice and voice.is_connected():
+            voice.stop()
+            await voice.disconnect()
+
+            voice = await channel.connect()
+        else:
+            voice = await channel.connect()
+        
+# Leave
+class Leave(commands.Cog):
+    @bot.command(name='Leave', description='Make the bot leave your channel!', pass_context=True, aliases=['leave'])
+    async def leave(ctx):
+        try:
+            channel = ctx.message.author.voice.channel
+        except:
+            # channel check
+            await ctx.send('You ain\'t in a channel homie')
+            return
+
+        await ctx.send('Yeet')
+
+        voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
+        voice.stop()
+        await voice.disconnect()
 
 # Logan Sounds
 class LoganSounds(commands.Cog):
@@ -52,7 +90,10 @@ class LoganSounds(commands.Cog):
         await ctx.send('Playing')
         voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
         if voice and voice.is_connected():
-            await voice.move_to(channel)
+            voice.stop()
+            await voice.disconnect()
+
+            voice = await channel.connect()
         else:
             voice = await channel.connect()
         
@@ -62,11 +103,6 @@ class LoganSounds(commands.Cog):
         # create stream
         while voice.is_playing():
             await asyncio.sleep(1)
-
-        # disconnect when done
-        voice.stop()
-        await voice.disconnect()
-
 
 # Message events
 @bot.event
