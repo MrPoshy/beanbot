@@ -89,12 +89,7 @@ class LoganSounds(commands.Cog):
         # channel info
         await ctx.send('Playing')
         voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
-        if voice and voice.is_connected():
-            voice.stop()
-            await voice.disconnect()
-
-            voice = await channel.connect()
-        else:
+        if not voice or not voice.is_connected():
             voice = await channel.connect()
         
         source = discord.FFmpegPCMAudio('/home/bot-man/beanbot/sound/logan/' + random.choice(os.listdir('/home/bot-man/beanbot/sound/logan')))
@@ -118,12 +113,7 @@ class Clown(commands.Cog):
         # channel info
         await ctx.send('Playing')
         voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
-        if voice and voice.is_connected():
-            voice.stop()
-            await voice.disconnect()
-
-            voice = await channel.connect()
-        else:
+        if not voice or not voice.is_connected():
             voice = await channel.connect()
 
         source = discord.FFmpegPCMAudio('/home/bot-man/beanbot/sound/clown/' + random.choice(os.listdir('/home/bot-man/beanbot/sound/clown')))
