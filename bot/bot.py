@@ -104,6 +104,35 @@ class LoganSounds(commands.Cog):
         while voice.is_playing():
             await asyncio.sleep(1)
 
+# Clown
+class Clown(commands.Cog):
+    @bot.command(name='Clown', description='funny', pass_context=True, aliases=['clown', 'toot', 'trumpet'])
+    async def playsound(ctx):
+        try:
+            channel = ctx.message.author.voice.channel
+        except:
+            # channel check
+            await ctx.send('You ain\'t in a channel homie')
+            return
+
+        # channel info
+        await ctx.send('Playing')
+        voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
+        if voice and voice.is_connected():
+            voice.stop()
+            await voice.disconnect()
+
+            voice = await channel.connect()
+        else:
+            voice = await channel.connect()
+
+        source = discord.FFmpegPCMAudio('/home/bot-man/beanbot/sound/clown/' + random.choice(os.listdir('/home/bot-man/beanbot/sound/clown')))
+        player = voice.play(source)
+
+        # create stream
+        while voice.is_playing():
+            await asyncio.sleep(1)
+
 # Message events
 @bot.event
 async def on_message(message):
