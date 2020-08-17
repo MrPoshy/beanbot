@@ -123,6 +123,28 @@ class Clown(commands.Cog):
         while voice.is_playing():
             await asyncio.sleep(1)
 
+#Poggers
+class Poggers():
+    async def playsound(message):
+        try:
+            channel = message.author.voice.channel
+        except:
+            # channel check
+            return
+
+        # channel info
+        await message.channel.send('POGGERS')
+        voice = discord.utils.get(bot.voice_clients, guild=message.guild)
+        if not voice or not voice.is_connected():
+            voice = await channel.connect()
+
+        source = discord.FFmpegPCMAudio('/home/bot-man/beanbot/sound/poggers/' + random.choice(os.listdir('/home/bot-man/beanbot/sound/poggers')))
+        player = voice.play(source)
+
+        # create stream
+        while voice.is_playing():
+            await asyncio.sleep(1)
+
 # Message events
 @bot.event
 async def on_message(message):
@@ -137,6 +159,9 @@ async def on_message(message):
 
     if 'poopoo' in message.content.lower():
         await message.channel.send("peepee")
+
+    if 'poggers' in message.content.lower():
+        await Poggers.playsound(message)
 
     await bot.process_commands(message)
 
